@@ -49,11 +49,14 @@ function replaceAll(string, original, replaced) {
 
 function processNextDirective(opts, state) {
   const { linesAlreadyProcessed, linesToProcess } = state;
-  const firstDirective = _.first(linesToProcess, (line) => startsWith(line, DIRECTIVE_PREFIX));
-  if(!firstDirective) {
+  const indexOfFirstDirective = _.findIndex(linesToProcess, (line) => startsWith(line, DIRECTIVE_PREFIX));
+  if(indexOfFirstDirective === -1) {
     _.each(linesToProcess, (line) => linesAlreadyProcessed.push(line));
     return linesAlreadyProcessed;
   }
+  const firstDirective = linesToProcess[indexOfFirstDirective];
+  const linesToIgnore = _.slice(linesToProcess, 0, indexOfFirstDirective);
+  const nextLinesToProcess = _.slice(linesToProcess, indexOfFirstDirective);
   const params = firstDirective.match(DIRECTIVE_REGEXP);
   if(params === null) {
     throw new Error(`Unrecognized directive in ${state.entry}: ${firstDirective}`);
@@ -65,6 +68,8 @@ function processNextDirective(opts, state) {
   if(_.includes(opts.blacklist, directiveName)) {
     return directives._noop(opts, state);
   }
+  _.each(linesToIgnore, (line) => linesAlreadyProcessed.push(line));
+  state.linesToProcess = nextLinesToProcess;
   return directives[directiveName](opts, state, directiveArgs);
 }
 
