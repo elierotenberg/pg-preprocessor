@@ -19,7 +19,12 @@ gulp.task('lint', () =>
   .pipe(eslint.format())
 );
 
-gulp.task('build', ['lint'], () =>
+gulp.task('copyNonJSX', () =>
+  gulp.src(['src/**/*'], ['!src/**/*.jsx'])
+  .pipe(gulp.dest('dist'))
+);
+
+gulp.task('build', ['lint', 'copyNonJSX'], () =>
   gulp.src('src/**/*.jsx')
   .pipe(sourcemaps.init())
   .pipe(babel(babelConfig))

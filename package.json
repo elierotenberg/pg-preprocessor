@@ -1,5 +1,5 @@
 {
-  "name": "LIB-NAME",
+  "name": "pg-preprocessor",
   "version": "0.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elierotenberg/LIB-NAME.git"
+    "url": "git+https://github.com/elierotenberg/pg-preprocessor.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/elierotenberg/LIB-NAME/issues"
+    "url": "https://github.com/elierotenberg/pg-preprocessor/issues"
   },
-  "homepage": "https://github.com/elierotenberg/LIB-NAME#readme",
-  "private": true,
+  "homepage": "https://github.com/elierotenberg/pg-preprocessor#readme",
+  "private": false,
   "devDependencies": {
     "babel": "^5.8.23",
     "babel-eslint": "^4.1.3",
@@ -35,6 +35,8 @@
     "source-map-support": "^0.3.2"
   },
   "dependencies": {
-    "babel-runtime": "^5.8.25"
+    "babel-runtime": "^5.8.25",
+    "bluebird": "^2.10.2",
+    "lodash": "^3.10.1"
   }
 }
